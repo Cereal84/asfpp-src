@@ -4,11 +4,10 @@ This file defines classes for the primitives provided by the attack
 specification language. Every class includes a method that returns 
 an XML block related to a primitive execution.
 
-Authors:
-Alessandro Pischedda	alessandro.pischedda@gmail.com
-Marco Tiloca		marco.tiloca84@gmail.com
-
 """
+
+__author__ = "Alessandro Pischedda, Marco Tiloca"
+__email__ = "alessandro.pischedda@gmail.com, marco.tiloca84@gmail.com"
 
 import sys
 
@@ -19,8 +18,9 @@ def error_arguments(name, ex_number, g_number):
               %(name, ex_number, g_number))
 
 
-""" clone(srcPacketName, dstPacketName) """	
+
 class Clone:
+    """ Return the XML version of clone(srcPacketName, dstPacketName) """	
 
     name = "Clone"
     argv = []
@@ -38,9 +38,9 @@ class Clone:
         
         return xml
 
-
-""" send(packetName, delay) """		
+	
 class Send:
+    """ Return the XML version of send(packetName, delay) """
 
     name = "Send"
     argv = []
@@ -60,8 +60,9 @@ class Send:
         return xml
 
 
-""" drop(packetName) """
+
 class Drop:
+    """ Return the XML version of drop(packetName) """
 
     name = "Drop"
     argv = []
@@ -80,11 +81,10 @@ class Drop:
         return xml
 
 
-""" 
-    move(x, y, z) --- Node(s) and occurrence time are not stored in this object 
-"""
 class Move:
-
+    """ Return the XML version of move(x, y, z).
+        --- Node(s) and occurrence time are not stored in this object.
+    """
     argv = []
     argc = 3	
     name = "Move"
@@ -104,9 +104,10 @@ class Move:
         return xml
 
 
-""" destroy() --- Node(s) and occurrence time are not stored in this object """
 class Destroy:
-
+    """ Return the XML version of destroy().
+        --- Node(s) and occurrence time are not stored in this object.
+    """
     def __str__(self):
 		
         xml = "\t<action>\n\t\t<name>Destroy</name>\n\t</action>"
@@ -114,14 +115,14 @@ class Destroy:
         return xml
 
 
-""" change(packet, field, newContent) 
-
-	The field format is layer.field 
-	
-	The layer can be APP, MAC, and ROUTING or NET
-	Possible field names are related to the particular layer
-"""
 class Change:
+    """ Return the XML version of change(packet, field, newContent).
+
+    	The field format is layer.field 
+	
+    	The layer can be APP, MAC, and ROUTING or NET
+    	Possible field names are related to the particular layer
+    """
 	
     argv = []
     argc = 3
@@ -143,16 +144,16 @@ class Change:
         return xml
 
 
-""" retrieve(packet, field , variable) 
-
-	The field format is layer.field 
-	
-	The layer can be APP, MAC, and ROUTING or NET
-	Possible field names are related to the particular layer
-	The third parameter must be a variable
-
-"""
 class Retrieve:
+    """ Return the XML version of retrieve(packet, field , variable).
+
+    	The field format is layer.field 
+    	
+    	The layer can be APP, MAC, and ROUTING or NET
+    	Possible field names are related to the particular layer
+    	The third parameter must be a variable
+
+    """
 	
     argv = []
     argc = 3
@@ -174,13 +175,14 @@ class Retrieve:
         return xml
 
 
-""" put(packet, dstNodes, direction, updateStat, delay) 
-
-	# dstNodes is a list of node IDs, separated by the char '|'
-
-"""
 class Put:
-	
+    """ Return the XML version of 
+        put(packet, dstNodes, direction, updateStat, delay).
+
+    	--- dstNodes is a list of node IDs, separated by the char '|'
+
+    """	
+
     argv = []
     argc = 5
     name = "Put"
@@ -200,8 +202,11 @@ class Put:
         return xml
 
 
-""" create(packet, layer1.type, value1, layer2.type, value2, ...)"""
+
 class Create:
+    """ Return the XML version of 
+        create(packet, layer1.type, value1, layer2.type, value2, ...)
+    """
 
     argv = []
     argc = 7 # at most
@@ -228,8 +233,8 @@ class Create:
         return xml
 
 
-""" Handle the expression """
 class Expression:
+    """ Handle an expression and return its XML version """
 
     expr = ""
 
