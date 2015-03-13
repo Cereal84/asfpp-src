@@ -1,7 +1,8 @@
 """
 
-This file defines classes for the primitives provided by the attack specification language.
-Every class includes a method that returns an XML block related to a primitive execution.
+This file defines classes for the primitives provided by the attack 
+specification language. Every class includes a method that returns 
+an XML block related to a primitive execution.
 
 Authors:
 Alessandro Pischedda	alessandro.pischedda@gmail.com
@@ -13,7 +14,9 @@ import sys
 
 # Wrong number of arguments
 def error_arguments(name, ex_number, g_number):
-    sys.exit("Error: "+name+"() takes exactly "+str(ex_number)+" arguments ( "+str(g_number)+ " given )")
+
+    sys.exit('Error: %s() takes exactly %d arguments ( %d given )' 
+              %(name, ex_number, g_number))
 
 
 """ clone(srcPacketName, dstPacketName) """	
@@ -29,9 +32,10 @@ class Clone:
     def __str__(self):
         if self.argc != len(self.argv):
             error_arguments(self.name, self.argc, len(self.argv))
-
-        xml = "\t<action>\n\t\t<name>Clone</name>\n\t\t<parameters>packetName:"+self.argv[0]+":newPacketName:"+self.argv[1]+"</parameters>\n\t</action>"
-
+        xml = ('\t<action>\n\t\t<name>Clone</name>\n\t\t<parameters>packetName:'
+               '%s:newPacketName:%s</parameters>\n\t</action>'%(self.argv[0], 
+               self.argv[1]))
+        
         return xml
 
 
@@ -49,7 +53,9 @@ class Send:
         if self.argc != len(self.argv):
             error_arguments(self.name, self.argc, len(self.argv))
 
-        xml = "\t<action>\n\t\t<name>Send</name>\n\t\t<parameters>packetName:"+self.argv[0]+":delay:"+self.argv[1]+"</parameters>\n\t</action>"
+        xml = ('\t<action>\n\t\t<name>Send</name>\n\t\t<parameters>packetName:'
+               '%s:delay:%s</parameters>\n\t</action>' % (self.argv[0], 
+               self.argv[1]))
 
         return xml
 
@@ -67,13 +73,16 @@ class Drop:
     def __str__(self):
         if self.argc != len(self.argv):
             error_arguments(self.name, self.argc, len(self.argv))
-		
-        xml = "\t<action>\n\t\t<name>Drop</name>\n\t\t<parameters>packetName:"+self.argv[0]+"</parameters>\n\t</action>"
+
+        xml = ('\t<action>\n\t\t<name>Drop</name>\n\t\t<parameters>packetName:'
+               '%s</parameters>\n\t</action>' % (self.argv[0]))
 
         return xml
 
 
-""" move(x, y, z) --- Node(s) and occurrence time are not stored in this object """
+""" 
+    move(x, y, z) --- Node(s) and occurrence time are not stored in this object 
+"""
 class Move:
 
     argv = []
@@ -88,8 +97,9 @@ class Move:
             error_arguments(self.name, self.argc, len(self.argv))
 		
         coordinates = self.argv[0]+":"+self.argv[1]+":"+self.argv[2]
-        xml = ''.join(["\t<action>\n\t\t<name>Move</name>\n\t\t<parameters>",
-                        coordinates,"</parameters>\n\t</action>"])
+        
+        xml = ('\t<action>\n\t\t<name>Move</name>\n\t\t<parameters>%s'
+              '</parameters>\n\t</action>' % (coordinates))
 
         return xml
 
@@ -126,7 +136,9 @@ class Change:
 			
         field = self.argv[1].replace('"', "")
 		
-        xml = "\t<action>\n\t\t<name>Change</name>\n\t\t<parameters>packetName:"+self.argv[0]+":field_name:"+field+":value:"+self.argv[2]+"</parameters>\n\t</action>"""
+        xml = ('\t<action>\n\t\t<name>Change</name>\n\t\t<parameters>'
+               'packetName:%s:field_name:%s:value:%s</parameters>\n\t</action>'
+              % (self.argv[0], field, self.argv[2]))
 
         return xml
 
@@ -155,7 +167,9 @@ class Retrieve:
 
         field = self.argv[1].replace('"', "")
 		
-        xml = "\t<action>\n\t\t<name>Retrieve</name>\n\t\t<parameters>packetName:"+self.argv[0]+":field_name:"+field+":varName:"+self.argv[2]+"</parameters>\n\t</action>"
+        xml = ('\t<action>\n\t\t<name>Retrieve</name>\n\t\t<parameters>'
+               'packetName:%s:field_name:%s:varName:%s</parameters>\n\t'
+               '</action>' % (self.argv[0], field, self.argv[2]))
 
         return xml
 
@@ -177,8 +191,11 @@ class Put:
     def __str__(self):
         if self.argc != len(self.argv):
             error_arguments(self.name, self.argc, len(self.argv))
-		
-        xml = "\t<action>\n\t\t<name>Put</name>\n\t\t<parameters>packetName:"+self.argv[0]+":nodes:"+self.argv[1]+":direction:"+self.argv[2]+":throughWC:"+self.argv[3]+":delay:"+self.argv[4]+"</parameters>\n\t</action>"
+
+        xml = ('\t<action>\n\t\t<name>Put</name>\n\t\t<parameters>packetName:'
+               '%s:nodes:%s":direction:%s:throughWC:%s:delay:%s</parameters>'
+               '\n\t</action>' % (self.argv[0], self.argv[1], self.argv[2],
+               self.argv[3], self.argv[4]))
 
         return xml
 
@@ -194,13 +211,14 @@ class Create:
         self.argv = args.split(":")
 
     def __str__(self):
-        if (len(self.argv) < 3):
+        if len(self.argv) < 3:
             error_arguments(self.name, self.argc, len(self.argv))
-		
-        xml = "\t<action>\n\t\t<name>Create</name>\n\t\t<parameters>packetName:"+self.argv[0]
+
+        xml = ('\t<action>\n\t\t<name>Create</name>\n\t\t<parameters>'
+               'packetName:%s' % (self.argv[0]))		
 		
         i = 1 # Skip the first argument, i.e. the packet name
-        while (i < len(self.argv)):
+        while i < len(self.argv):
             field = self.argv[i].replace('"',"") # Remove '"' from string arguments
             xml = xml + ":" + field
             i = i + 1
