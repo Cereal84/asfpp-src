@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 
 """
-
-This python script takes one description file as input, and produces an XML attack specification file as output.
-
-Attacks are described in the input file by means of the attack specification language.
-
-Authors:
-Alessandro Pischedda	alessandro.pischedda@gmail.com
-Marco Tiloca		marco.tiloca84@gmail.com
-Francesco Racciatti 	racciatti.francesco@gmail.com
+This python script takes one description file as input, and produces an
+ XML attack specification file as output. Attacks are described in the
+ input file by means of the attack specification language.
 
 """
+
+__author__ = "Alessandro Pischedda, Marco Tiloca, Francesco Racciatti"
+__email__ = """alessandro.pischedda@gmail.com, marco.tiloca84@gmail.com,
+                racciati.francesco@gmail.com """
+
+
 
 import sys
 import os
@@ -34,18 +34,37 @@ except ImportError:
 
 # DATA STRUCTURES
 
-level = 0  # This is to assure correct XML indentation
-global_symbol_table = {} # All declared global IDs and their type (i.e. LIST)
-symbol_table = {} # All declared local IDs and their type (i.e. VAR, PACKET) (global symbols cannot be overriden)
+# This is to assure correct XML indentation
+level = 0
 
-actions = [] # List of actions composing an attack
-variables = {} # Dictionary of variables used within an attack. Entry format is <name, XML string>, and the latter includes value and type
-lists = {} # Dictionary of node lists. Entry format is <list_name, list of nodes>, with the node list as a string (nodes are separated by '|')
-listDestroy = {} # Dictionary of 'destroy' actions. Entry format is <time, list_nodes>, with the node list as a string (nodes are separated by ':')
-listMove = {} # Dictionary of 'move' actions <time, <position, list_nodes>>, with the node list as a string (nodes are separated by ':')
+# All declared global IDs and their type (i.e. LIST)
+global_symbol_table = {}
+# All declared local IDs and their type 
+# (i.e. VAR, PACKET) (global symbols cannot be overriden)
+symbol_table = {}
 
-packetFilter = "" # Packet filter boolean expression
-packetFilterOperator = "AND" # Boolean operator used in the packet filter expression ('AND' by default)
+# List of actions composing an attack
+actions = []
+# Dictionary of variables used within an attack. Entry format is
+# <name, XML string>, and the latter includes value and type
+variables = {}
+
+# Dictionary of node lists. Entry format is <list_name, list of nodes>, 
+# with the node list as a string (nodes are separated by '|')
+lists = {}
+
+# Dictionary of 'destroy' actions. Entry format is <time, list_nodes>,
+# with the node list as a string (nodes are separated by ':')
+listDestroy = {}
+
+# Dictionary of 'move' actions <time, <position, list_nodes>>, with the
+# node list as a string (nodes are separated by ':')
+listMove = {}
+
+# Packet filter boolean expression
+packetFilter = ""
+# Boolean operator used in the packet filter expression ('AND' by default)
+packetFilterOperator = "AND"
 
 physical_att = [] # List of physical attacks
 conditional_att = [] # List of conditional attacks
@@ -59,20 +78,20 @@ layer_names = ["APP", "NET", "MAC"]
 # UTILITIES
 
 def print_error(error_msg, error_lineno):
-		error_msg = error_msg+" - Line "+str(error_lineno)
-		print error_msg
-		raise SyntaxError
+    error_msg = error_msg+" - Line "+str(error_lineno)
+    print error_msg
+    raise SyntaxError
 
 # check if the input file exist and it is a valid file
 def check_input(filename):
 
-	if not os.path.exists(filename):
-		print str(filename)+" not exists."
-		sys.exit(-1)
+    if not os.path.exists(filename):
+        print str(filename)+" not exists."
+        sys.exit(-1)
 
-	if not os.path.isfile(filename):
-		print str(filename)+" is a directory."
-		sys.exit(-1)
+    if not os.path.isfile(filename):
+        print str(filename)+" is a directory."
+        sys.exit(-1)
 
 
 # check if the output file :
@@ -148,23 +167,23 @@ def options():
 # Clear data structures
 def clear_data_structure():
 
-	packetFilter = ""
-	packetFilterOperator = "AND" # Back to its default value
-	
-	del actions[:]
-	variables.clear()
-	symbol_table.clear()
+    packetFilter = ""
+    packetFilterOperator = "AND" # Back to its default value
+
+    del actions[:]
+    variables.clear()
+    symbol_table.clear()
 
 # check if the user has specified an existing layer name
 # field is "layer.field" so we need to extract the layer name
 def check_layer_name(field):
 	
-	hygienize = field.replace("\"", "")
-	layer_name =	(hygienize.split("."))[0]
+    hygienize = field.replace("\"", "")
+    layer_name =	(hygienize.split("."))[0]
 
-	if layer_name in layer_names:
-		return True
-	return False
+    if layer_name in layer_names:
+        return True
+    return False
 
 
 # Parsing rules
@@ -178,7 +197,7 @@ precedence = (
 
 
 def p_program(p):
-	'program : global_entries'
+    'program : global_entries'
 
 	
 def p_global_entries(p):
@@ -946,26 +965,25 @@ yacc.yacc(debug=0, start='program')
 
 if __name__ == '__main__':
 
-	# Retrieve command line arguments and options
-	opts = options()
+    # Retrieve command line arguments and options
+    opts = options()
 
-	# Retrieve the absolute path of the script
-	path = os.path.dirname(os.path.abspath(__file__))	# <F.R.>
-	
-	check_input(opts["input"])
-	opts["output"] = check_output(opts["output"])
+    # Retrieve the absolute path of the script
+    path = os.path.dirname(os.path.abspath(__file__))	# <F.R.>
 
+    check_input(opts["input"])
+    opts["output"] = check_output(opts["output"])
 
-	# Retrieve the content of the attack specification file
-	src_file = open(opts["input"], "r")
-	file_content = src_file.read()
-	src_file.close()
-        
-	# Parse the attack specification file
-	yacc.parse(file_content)
+    # Retrieve the content of the attack specification file
+    src_file = open(opts["input"], "r")
+    file_content = src_file.read()
+    src_file.close()
+       
+    # Parse the attack specification file
+    yacc.parse(file_content)
 
-	# Produce the output XML file
-	write_file(opts["output"])
-	
-	# File cleaning
-	call("rm "+path+"/*.pyc", shell=True)	# <F.R.>
+    # Produce the output XML file
+    write_file(opts["output"])
+
+    # File cleaning
+    call("rm "+path+"/*.pyc", shell=True)	# <F.R.>
