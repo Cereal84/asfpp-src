@@ -224,7 +224,8 @@ class Create:
 		
         i = 1 # Skip the first argument, i.e. the packet name
         while i < len(self.argv):
-            field = self.argv[i].replace('"',"") # Remove '"' from string arguments
+            # Remove '"' from string arguments
+            field = self.argv[i].replace('"',"")
             xml = xml + ":" + field
             i = i + 1
 		
