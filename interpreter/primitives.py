@@ -20,7 +20,7 @@ def error_arguments(name, ex_number, g_number):
 
 
 class Clone:
-    """ Return the XML version of clone(srcPacketName, dstPacketName) """	
+    """Return the XML version of clone(srcPacketName, dstPacketName)"""	
 
     name = "Clone"
     argv = []
@@ -40,7 +40,7 @@ class Clone:
 
 	
 class Send:
-    """ Return the XML version of send(packetName, delay) """
+    """Return the XML version of send(packetName, delay)"""
 
     name = "Send"
     argv = []
@@ -62,7 +62,7 @@ class Send:
 
 
 class Drop:
-    """ Return the XML version of drop(packetName) """
+    """Return the XML version of drop(packetName)"""
 
     name = "Drop"
     argv = []
@@ -82,8 +82,9 @@ class Drop:
 
 
 class Move:
-    """ Return the XML version of move(x, y, z).
-        --- Node(s) and occurrence time are not stored in this object.
+    """
+    Return the XML version of move(x, y, z).
+    Node(s) and occurrence time are not stored in this object.
     """
     argv = []
     argc = 3	
@@ -105,7 +106,7 @@ class Move:
 
 
 class Destroy:
-    """ Return the XML version of destroy().
+    """Return the XML version of destroy().
         --- Node(s) and occurrence time are not stored in this object.
     """
     def __str__(self):
@@ -116,12 +117,11 @@ class Destroy:
 
 
 class Change:
-    """ Return the XML version of change(packet, field, newContent).
-
-    	The field format is layer.field 
-	
-    	The layer can be APP, MAC, and ROUTING or NET
-    	Possible field names are related to the particular layer
+    """
+    Return the XML version of change(packet, field, newContent).
+   	The field format is layer.field 
+   	The layer can be APP, MAC, and ROUTING or NET
+   	Possible field names are related to the particular layer
     """
 	
     argv = []
@@ -145,14 +145,14 @@ class Change:
 
 
 class Retrieve:
-    """ Return the XML version of retrieve(packet, field , variable).
+    """
+    Return the XML version of retrieve(packet, field , variable).
 
-    	The field format is layer.field 
+    The field format is layer.field 
     	
-    	The layer can be APP, MAC, and ROUTING or NET
-    	Possible field names are related to the particular layer
-    	The third parameter must be a variable
-
+   	The layer can be APP, MAC, and ROUTING or NET
+   	Possible field names are related to the particular layer
+   	The third parameter must be a variable
     """
 	
     argv = []
@@ -176,11 +176,10 @@ class Retrieve:
 
 
 class Put:
-    """ Return the XML version of 
-        put(packet, dstNodes, direction, updateStat, delay).
-
-    	--- dstNodes is a list of node IDs, separated by the char '|'
-
+    """
+    Return the XML version of 
+    put(packet, dstNodes, direction, updateStat, delay).
+    dstNodes is a list of node IDs, separated by the char '|'
     """	
 
     argv = []
@@ -204,8 +203,9 @@ class Put:
 
 
 class Create:
-    """ Return the XML version of 
-        create(packet, layer1.type, value1, layer2.type, value2, ...)
+    """
+    Return the XML version of 
+    create(packet, layer1.type, value1, layer2.type, value2, ...)
     """
 
     argv = []
@@ -234,7 +234,9 @@ class Create:
 
 
 class Expression:
-    """ Handle an expression and return its XML version """
+    """
+    Handle an expression and return its XML version
+    """
 
     expr = ""
 
