@@ -6,8 +6,8 @@ This tool is something like an interpreter, it allows the user/s to write attack
 
 Requirements
 ============
-It is necessary to have PLY (Python Lex-Yacc) created by David Beazley, you can download it from
-http://www.dabeaz.com/ply/ or from his GitHub page https://github.com/dabeaz/ply.
+It is necessary to have PLY (Python Lex-Yacc) created by David Beazley, you can download it from 
+his personal [page] (http://www.dabeaz.com/ply/) or from his [Github page](https://github.com/dabeaz/ply).
 
 Usage
 =====
@@ -24,8 +24,8 @@ Example
 
 Authors
 =======
-Alessandro Pischedda	alessandro.pischedda@gmail.com
-Marco Tiloca		marco.tiloca84@gmail.com
++ Alessandro Pischedda	alessandro.pischedda@gmail.com
++ Marco Tiloca		marco.tiloca84@gmail.com
 
 
 Acknowledgement
