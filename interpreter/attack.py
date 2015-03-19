@@ -10,7 +10,7 @@ Marco Tiloca		marco.tiloca84@gmail.com
 """
 
 class PhysicalAttack:
-
+"""Return a string in XML format which contains all the Physical attacks"""
 	time = "" # attack occurrence time
 	nodes = "" # list of involved nodes
 	stmts = [] # list of actions
@@ -35,7 +35,7 @@ class PhysicalAttack:
 
 
 class ConditionalAttack:
-
+"""Return a string in XML format which contains all the Conditional attacks"""
 	time = ""  # attack first occurrence time
 	nodes = "" # list of involved nodes
 	stmts = [] # list of actions
@@ -70,7 +70,7 @@ class ConditionalAttack:
 
 
 class UnconditionalAttack:
-
+"""Return a string in XML format which contains all the Unconditional attacks"""
 	time = "" # attack first occurrence time
 	stmts = [] # list of actions
 	var_dict = {} # dictionary of variables <name, XML string>
