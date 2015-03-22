@@ -26,9 +26,5 @@ Authors
 =======
 + Alessandro Pischedda	alessandro.pischedda@gmail.com
 + Marco Tiloca		marco.tiloca84@gmail.com
-
-
-Acknowledgement
-===============
-Francesco Racciati  racciati.francesco@gmail.com 
++ Francesco Racciati  racciati.francesco@gmail.com 
 
