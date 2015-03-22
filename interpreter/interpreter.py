@@ -498,7 +498,8 @@ def p_statement_retrieve(p):
         print_error("\tError : ID overloading is not allowed", str(p.lineno(1)) )
       
     if check_layer_name(p[5]) is False:
-        print_error("\tError : Layer name unknown, use APP/NET/MAC instead", str(p.lineno(1)))
+        print_error("\tError : Layer name unknown, use APP/NET/MAC instead %s" 
+                        %(str(p.lineno(1))))
 
     args = "%s:%s:%s" %(str(p[3]), str(p[5]), str(p[7]))
     action = Retrieve(args)
@@ -513,7 +514,7 @@ def p_statement_put(p):
 	  
     # Check that the second argument refers to a declared list
     if p[5] not in lists.keys():
-        print_error("\tError : list '" + p[5] + "' is not declared", str(p.lineno(1)) )
+        print_error("\tError : list '%s' is not declared %s" %(p[5], str(p.lineno(1))))
 
     # Replace the second argument with the list content
     p[5] = str(lists[str(p[5])])
@@ -544,8 +545,9 @@ def p_filter_content_mono(p):
 
 def p_filter_content_generic(p):
     'filter_content : filter_elem logic_operator filter_content'
-	
-    p[0] = p[1] + p[3] + ":" + p[2]# at the moment, using only either AND or OR is admitted. The right one is appended at the end
+	# at the moment, using only either AND or OR is admitted. 
+    # The right one is appended at the end
+    p[0] = p[1] + p[3] + ":" + p[2]
 
 # handle the condiction contained between two paren
 def p_filter_content_paren(p):
