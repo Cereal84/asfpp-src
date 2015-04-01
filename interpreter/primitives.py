@@ -13,6 +13,7 @@ import sys
 
 # Wrong number of arguments
 def error_arguments(name, ex_number, g_number):
+    """Return the string which contains the error message"""
 
     sys.exit('Error: %s() takes exactly %d arguments ( %d given )' 
               %(name, ex_number, g_number))
