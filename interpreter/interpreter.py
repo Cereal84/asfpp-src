@@ -550,7 +550,7 @@ def p_filter_content_mono(p):
 def p_filter_content_generic(p):
 	'filter_content : filter_elem logic_operator filter_content'
 	
-	p[0] = p[1] + p[3] + ":" + p[2]# at the moment, using only either AND or OR is admitted. The right one is appended at the end
+	p[0] = p[1] +":"+ p[3] + ":" + p[2]# at the moment, using only either AND or OR is admitted. The right one is appended at the end
 
 # handle the condiction contained between two paren
 def p_filter_content_paren(p):
